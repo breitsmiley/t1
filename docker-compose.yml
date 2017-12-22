@@ -10,8 +10,6 @@ services:
       - type: bind
         source: .
         target: /srv/blog
-    depends_on:
-      - db
 
   nginx:
     image: mobilife-nginx
@@ -24,10 +22,6 @@ services:
       - type: bind
         source: ./public
         target: /srv/blog/public
-    depends_on:
-      - php
-      - db
-
   db:
     # In production, you may want to use a managed database service
     image: postgres:9.6-alpine
