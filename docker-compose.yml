@@ -35,7 +35,7 @@ services:
         - POSTGRES_DB=blog
         - POSTGRES_USER=blog
         # You should definitely change the password in production
-        - POSTGRES_PASSWORD=dbpass
+        - POSTGRES_PASSWORD=5Crj73e6ooYG
     volumes:
       - type: volume
         source: db-data
