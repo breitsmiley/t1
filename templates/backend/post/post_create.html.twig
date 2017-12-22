@@ -1,0 +1,34 @@
+{% extends 'backend/layout.html.twig' %}
+
+{% block title_prefix %}Create Blog Post{% endblock %}
+
+{% block page_header_title %}Create Blog Post{% endblock %}
+{#{% block page_header_description %}List of all posts{% endblock %}#}
+
+{% block jsPageLevelScripts %}
+    <script src="{{ asset('assets/backend/js/post_create.js') }}"></script>
+{% endblock %}
+
+{% block main_content %}
+<h1>New Post</h1>
+{#<div class="table-responsive">#}
+
+    <form id="postCreateForm" method="post">
+        <div id="resultAlert" class="alert" style="display: none;" role="alert"></div>
+
+        <div class="form-group">
+            <label for="titleInput">Title</label>
+            <input type="text" class="form-control" id="titleInput" name='form[title]' value="Title">
+        </div>
+        <div class="form-group">
+            <label for="descriptionInput">Description</label>
+            <input type="text" class="form-control" id="descriptionInput" name='form[description]' value="Description">
+        </div>
+        <div class="form-group">
+            <label for="textInput">Text</label>
+            <textarea class="form-control" id="textInput" rows="3" name='form[text]'>Text</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing">Save</button>
+    </form>
+{#</div>#}
+{% endblock %}

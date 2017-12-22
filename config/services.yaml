@@ -3,6 +3,7 @@
 parameters:
    app.service_name: '%env(APP_GLOBAL_SERVICE_NAME)%'
    app.blog_posts_per_page: '%env(APP_BLOG_POSTS_PER_PAGE)%'
+   app.admin_root_url: '%env(APP_ADMIN_ROOT_URL)%'
 services:
     # default configuration for services in *this* file
     _defaults:

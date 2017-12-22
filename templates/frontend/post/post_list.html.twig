@@ -19,6 +19,6 @@
 
 {% else %}
     <div class="alert alert-danger" role="alert">
-        {{ error }} <a href="#">ADD</a>
+        {{ error }} <a href="{{ url('admin_create_blog_post') }}">ADD</a>
     </div>
 {% endif %}
