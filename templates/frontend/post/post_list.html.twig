@@ -1,0 +1,24 @@
+{% if status %}
+    <div class="blog-post">
+        {% for onePost in data.posts %}
+            <h2 class="blog-post-title"><a href="{{ url('show_post', {'id': onePost.id}) }}">{{ onePost.title }}</a></h2>
+            <p class="blog-post-meta">{{ onePost.createdAt|localizeddate('full', 'short', 'en') }}</p>
+            <p>{{ onePost.description }}</p>
+            <hr>
+        {% endfor %}
+    </div>
+
+
+    {%  if data.isPrevPage or data.isNextPage %}
+        <nav class="blog-pagination">
+            <a id="postPrevBtn" class="btn btn-outline-primary{% if not data.isPrevPage %} disabled{% endif %}" href="#">Prev</a>
+            <a id="postNextBtn" class="btn btn-outline-primary{% if not data.isNextPage %} disabled{% endif %}" href="#">Next</a>
+        </nav>
+    {% endif %}
+
+
+{% else %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }} <a href="#">ADD</a>
+    </div>
+{% endif %}

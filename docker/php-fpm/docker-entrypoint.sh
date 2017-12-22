@@ -11,13 +11,7 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'bin/console' ]; then
 		composer install --prefer-dist --no-progress --no-suggest --no-interaction
 		bin/console assets:install
 		bin/console doctrine:schema:update -f
-	fi
-
-    if [ "$APP_ENV" != 'dev' ]; then
-		composer install --prefer-dist --no-progress --no-suggest --no-interaction
-		bin/console assets:install
-		bin/console doctrine:schema:update -f
-		bin/console doctrine:fixtures:load -f
+		bin/console doctrine:fixtures:load
 	fi
 
 	# Permissions hack because setfacl does not work on Mac and Windows

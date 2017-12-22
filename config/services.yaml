@@ -1,7 +1,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-
+   app.service_name: '%env(APP_GLOBAL_SERVICE_NAME)%'
+   app.blog_posts_per_page: '%env(APP_BLOG_POSTS_PER_PAGE)%'
 services:
     # default configuration for services in *this* file
     _defaults:

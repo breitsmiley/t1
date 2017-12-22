@@ -3,38 +3,62 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Service\BlogPostManager;
+use App\Service\JsonResponseHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class BlogController extends Controller
 {
     /**
-     * @Route("/", name="blog_homepage")
+     * @Route("/ajax/blog/posts/show", name="ajax_blog_posts_show",
+     *          condition="request.isXmlHttpRequest()"
+     * )
+     * @Method({"POST"})
      */
-    public function index()
+    public function showBlogPostsAction(Request $request, JsonResponseHelper $jsonResponseHelper, BlogPostManager $blogPostManager)
     {
+        $requestData = $request->request->all();
 
-        return $this->render('frontend/posts.html.twig', [
-            'posts' => [],
+        $page = $requestData['page'] ?? 1;
+        $page = intval($page);
+
+        $response = $jsonResponseHelper->prepareJsonResponse();
+        $renderData = $blogPostManager->getBlogPostsRenderData($page);
+
+        $html = $this->renderView('frontend/post_list.html.twig', $renderData);
+
+        return $response->setData([
+            'html' => $html,
+            'page' => $renderData['data']['page'] ?? 1,
         ]);
 
-//        $em = $this->getDoctrine()->getManager();
-//
-//        $p = new Post();
-//        $p->setDescription('Keyboard')
-//            ->setText('text')
-//            ->setTitle('Ergonomic and stylish!')
-//            ->setDescription('sdfsfsdfsdf');
-//
-//        // tell Doctrine you want to (eventually) save the Product (no queries yet)
-//        $em->persist($p);
-//
-//        // actually executes the queries (i.e. the INSERT query)
-//        $em->flush();
+    }
 
-        // replace this line with your own code!
-//        return $this->render('@Maker/demoPage.html.twig', [ 'path' => str_replace($this->getParameter('kernel.project_dir').'/', '', __FILE__) ]);
-//        return $this->render('@Maker/demoPage.html.twig', [ 'path' => str_replace($this->getParameter('kernel.project_dir').'/', '', __FILE__) ]);
+    /**
+     * @Route("/", name="show_all_posts")
+     * @Method("GET")
+     */
+    public function showAllPostsAction()
+    {
+        return $this->render('frontend/post/index.html.twig');
+    }
+
+    /**
+     * @Route("/post/{id}", requirements={"page": "[1-9]\d*"}, name="show_post")
+     * @Method("GET")
+     */
+    public function showPostAction($id)
+    {
+        $post = $this->getDoctrine()
+            ->getRepository(Post::class)
+            ->find($id);
+
+        return $this->render('frontend/single_post.html.twig', [
+            'post' => $post
+            ]
+        );
     }
 }

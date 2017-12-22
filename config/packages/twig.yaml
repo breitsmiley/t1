@@ -4,4 +4,4 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         app_twig_var:
-            service_name: '%env(APP_SECRET)%'
+            service_name: '%app.service_name%'

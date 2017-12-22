@@ -1,0 +1,14 @@
+{% extends 'frontend/layout.html.twig' %}
+
+{% block title_prefix %}Blog Posts{% endblock %}
+
+{% block page_header_title %}Blog Posts{% endblock %}
+{% block page_header_description %}List of all posts{% endblock %}
+
+{% block jsPageLevelScripts %}
+    <script src="{{ asset('assets/frontend/js/blog-posts.js') }}"></script>
+{% endblock %}
+
+{% block main_content %}
+    <div id="postList" class="col-sm-8 blog-main"></div>
+{% endblock %}

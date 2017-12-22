@@ -1,0 +1,20 @@
+{% extends 'frontend/layout.html.twig' %}
+
+{% block title_prefix %}{{ post.title }}{% endblock %}
+
+{% block page_header_title %}One Post Content{% endblock %}
+{% block page_header_description %}One Post Content Description{% endblock %}
+
+
+{% block main_content %}
+    <div class="col-sm-8 blog-main">
+        <nav class="blog-pagination">
+            <a class="btn btn-outline-primary" href="{{ url('show_all_posts') }}">Back to All Posts</a>
+        </nav>
+
+        <h2 class="blog-post-title">{{ post.title }}</h2>
+        <p class="blog-post-meta">{{ post.createdAt|localizeddate('full', 'short', 'en') }}</p>
+        <p>{{ post.text }}</p>
+        <hr>
+    </div>
+{% endblock %}

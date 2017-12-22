@@ -35,8 +35,8 @@ services:
       - type: volume
         source: db-data
         target: /var/lib/postgresql/data:rw
-    volumes:
-        - db-data:/var/lib/postgresql/data:rw
+#    volumes:
+#        - db-data:/var/lib/postgresql/data:rw
         # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
         # - ./docker/db/data:/var/lib/postgresql/data:rw
     ports:
