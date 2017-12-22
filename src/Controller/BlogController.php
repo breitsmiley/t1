@@ -14,6 +14,11 @@ class BlogController extends Controller
      */
     public function index()
     {
+
+        return $this->render('frontend/posts.html.twig', [
+            'posts' => [],
+        ]);
+
 //        $em = $this->getDoctrine()->getManager();
 //
 //        $p = new Post();
@@ -29,6 +34,7 @@ class BlogController extends Controller
 //        $em->flush();
 
         // replace this line with your own code!
-        return $this->render('@Maker/demoPage.html.twig', [ 'path' => str_replace($this->getParameter('kernel.project_dir').'/', '', __FILE__) ]);
+//        return $this->render('@Maker/demoPage.html.twig', [ 'path' => str_replace($this->getParameter('kernel.project_dir').'/', '', __FILE__) ]);
+//        return $this->render('@Maker/demoPage.html.twig', [ 'path' => str_replace($this->getParameter('kernel.project_dir').'/', '', __FILE__) ]);
     }
 }
