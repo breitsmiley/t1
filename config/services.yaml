@@ -1,6 +1,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+   locale: 'en'
    app.service_name: '%env(APP_GLOBAL_SERVICE_NAME)%'
    app.blog_posts_per_page: '%env(APP_BLOG_POSTS_PER_PAGE)%'
    app.admin_root_url: '%env(APP_ADMIN_ROOT_URL)%'

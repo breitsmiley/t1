@@ -57,6 +57,16 @@ class AdminController extends Controller
             $post->setTitle($form['title'])
                 ->setDescription($form['description'])
                 ->setText($form['text']);
+
+            // Validation
+            $validator = $this->get('validator');
+            $errors = $validator->validate($post);
+
+            if (count($errors) > 0) {
+                $responseData['error'] = (string) $errors;
+                return  $response->setData($responseData);
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($post);
             $em->flush();
@@ -65,7 +75,6 @@ class AdminController extends Controller
             $responseData['error'] = 'Exception - contact support';
             return  $response->setData($responseData);
         }
-
 
         $response->setData([
             'status'  => true,

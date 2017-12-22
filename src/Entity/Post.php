@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
@@ -28,17 +29,20 @@ class Post
 
     /**
      * @ORM\Column(name="title", type="string", length=128)
+     * @Assert\NotBlank()
      */
     private $title;
 
     /**
      * @ORM\Column(name="description", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $description;
 
 
     /**
      * @ORM\Column(name="text", type="text")
+     * @Assert\NotBlank()
      */
     private $text;
 
