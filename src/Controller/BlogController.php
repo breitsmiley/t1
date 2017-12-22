@@ -28,7 +28,7 @@ class BlogController extends Controller
         $response = $jsonResponseHelper->prepareJsonResponse();
         $renderData = $blogPostManager->getBlogPostsRenderData($page);
 
-        $html = $this->renderView('frontend/post_list.html.twig', $renderData);
+        $html = $this->renderView('frontend/post/post_list.html.twig', $renderData);
 
         return $response->setData([
             'html' => $html,
@@ -56,7 +56,7 @@ class BlogController extends Controller
             ->getRepository(Post::class)
             ->find($id);
 
-        return $this->render('frontend/single_post.html.twig', [
+        return $this->render('frontend/post/single_post.html.twig', [
             'post' => $post
             ]
         );
