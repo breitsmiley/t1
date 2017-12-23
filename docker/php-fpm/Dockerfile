@@ -31,6 +31,10 @@ COPY /docker/php-fpm/php.ini /usr/local/etc/php/
 COPY /docker/php-fpm/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
+# Add tool for waiting available of other service
+COPY /docker/wait-for /usr/local/bin/wait-for
+RUN chmod +x /usr/local/bin/wait-for
+
 WORKDIR /srv/blog
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["php-fpm"]

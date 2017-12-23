@@ -2,6 +2,7 @@
 set -e
 
 # first arg is `-f` or `--some-option`
+# adding php-fpm befor all params and options
 if [ "${1#-}" != "$1" ]; then
 	set -- php-fpm "$@"
 fi
@@ -17,4 +18,4 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'bin/console' ]; then
 	chown -R www-data var
 fi
 
-exec docker-php-entrypoint "$@"
+exec "$@"

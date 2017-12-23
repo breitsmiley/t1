@@ -10,8 +10,7 @@ services:
       - type: bind
         source: .
         target: /srv/blog
-    depends_on:
-      - db
+    command: ["wait-for", "db:5432", "--", "php-fpm"]
 
   nginx:
     image: mobilife-nginx
@@ -24,9 +23,7 @@ services:
       - type: bind
         source: ./public
         target: /srv/blog/public
-    depends_on:
-      - php
-      - db
+    command: ["wait-for", "php:9000", "--", "nginx", "-g", "daemon off;"]
 
   db:
     # In production, you may want to use a managed database service
