@@ -10,7 +10,7 @@ services:
       - type: bind
         source: .
         target: /srv/blog
-    command: ["wait-for", "db:5432", "--", "php-fpm"]
+    command: ["wait-for", "db:5432", "--", "docker-entrypoint", "php-fpm"]
 
   nginx:
     image: mobilife-nginx
