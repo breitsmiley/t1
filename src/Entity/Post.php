@@ -11,6 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Post
 {
+    const POST_PER_PAGE = 3;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

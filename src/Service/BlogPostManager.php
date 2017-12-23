@@ -4,6 +4,7 @@
 namespace App\Service;
 
 
+use App\Entity\Post;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -13,14 +14,12 @@ class BlogPostManager
 
     private $sc;
     private $em;
-    private $postPerPage;
     private $postRepository;
 
     public function __construct(ContainerInterface $sc, EntityManagerInterface $em)
     {
         $this->sc = $sc;
         $this->em = $em;
-        $this->postPerPage = $sc->getParameter('app.blog_posts_per_page');
         $this->postRepository = $em->getRepository('App:Post');
     }
 
@@ -28,12 +27,12 @@ class BlogPostManager
     {
         $requestedPage = $page;
 
-        $posts = $this->postRepository->getPaginatedLatestPosts($requestedPage, $this->postPerPage);
+        $posts = $this->postRepository->getPaginatedLatestPosts($requestedPage, Post::POST_PER_PAGE);
         $postsCount = $posts->count();
 
         if (empty($postsCount)) {
             $requestedPage = 1;
-            $posts = $this->postRepository->getPaginatedLatestPosts($requestedPage, $this->postPerPage);
+            $posts = $this->postRepository->getPaginatedLatestPosts($requestedPage, Post::POST_PER_PAGE);
             $postsCount = $posts->count();
         }
 
@@ -49,7 +48,7 @@ class BlogPostManager
                 'posts'      => $posts,
                 'count'      => $postsCount,
                 'page'       => $requestedPage,
-                'isNextPage' => $postsCount > ($this->postPerPage * $requestedPage),
+                'isNextPage' => $postsCount > (Post::POST_PER_PAGE * $requestedPage),
                 'isPrevPage' => $requestedPage != 1,
             ];
 
