@@ -2,7 +2,7 @@
     <div class="blog-post">
         {% for onePost in data.posts %}
             <h2 class="blog-post-title"><a href="{{ url('show_post', {'id': onePost.id}) }}">{{ onePost.title }}</a></h2>
-            <p class="blog-post-meta">{{ onePost.createdAt|localizeddate('full', 'short', 'en') }}</p>
+            <p class="blog-post-meta">{{ onePost.createdAt|localizeddate('full', 'short', 'en') }} # {{ onePost.id }}</p>
             <p>{{ onePost.description }}</p>
             <hr>
         {% endfor %}
@@ -17,6 +17,6 @@
 
 {% else %}
     <div class="alert alert-danger" role="alert">
-        {{ error }} <a href="{{ url('admin_create_blog_post') }}">ADD</a>
+        {{ error }} <a href="{{ url('admin_blog_post_create') }}">ADD</a>
     </div>
 {% endif %}

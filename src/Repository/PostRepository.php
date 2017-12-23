@@ -23,7 +23,7 @@ class PostRepository extends ServiceEntityRepository
     public function getPaginatedLatestPosts(int $page, int $limit = 0): Paginator
     {
         $qb = $this->createQueryBuilder('p')
-            ->addOrderBy('p.createdAt', 'DESC')
+            ->addOrderBy('p.id', 'DESC')
             ->setFirstResult(($page - 1) * $limit);
 
         if ($limit != -1) {

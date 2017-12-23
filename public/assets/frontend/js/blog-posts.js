@@ -11,7 +11,7 @@ $(function () {
 
             $.ajax({
                 type: 'POST',
-                url: '/ajax/blog/posts/show',
+                url: '/ajax/blog/posts/get/page',
                 data: {
                     page: page
                 }

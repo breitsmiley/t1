@@ -12,7 +12,7 @@ $(function () {
 
         $.ajax({
             type: 'POST',
-            url: '/admin/ajax/blog/post/delete-all',
+            url: '/admin/ajax/blog/post/delete/all',
             data: true,
 
             beforeSend: function() {

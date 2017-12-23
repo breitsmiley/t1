@@ -20,12 +20,12 @@ class BlogPostManager
     {
         $this->sc = $sc;
         $this->em = $em;
-        $this->postRepository = $em->getRepository('App:Post');
+        $this->postRepository = $em->getRepository(Post::class);
     }
 
     public function getBlogPostsRenderData($page): array
     {
-        $requestedPage = $page;
+        $requestedPage = intval($page);
 
         $posts = $this->postRepository->getPaginatedLatestPosts($requestedPage, Post::POST_PER_PAGE);
         $postsCount = $posts->count();
@@ -39,7 +39,7 @@ class BlogPostManager
         $renderData = [
             'status' => false,
             'data'   => [],
-            'error' => '',
+            'error'  => '',
         ];
 
         if ($postsCount > 0) {

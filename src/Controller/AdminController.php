@@ -3,36 +3,34 @@
 namespace App\Controller;
 
 use App\Entity\Post;
-use App\Service\JsonResponseHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/%app.admin_root_url%")
  */
-class AdminController extends Controller
+class AdminController extends AbstractController
 {
-
     /**
-     * @Route("/blog/post/create", name="admin_create_blog_post")
+     * @Route("/blog/post/create", name="admin_blog_post_create")
      * @Method("GET")
      */
-    public function createBlogPostAction()
+    public function createBlogPost()
     {
         return $this->render('backend/post/post_create.html.twig');
     }
 
     /**
-     * @Route("/ajax/blog/post/create", name="admin_ajax_create_blog_post",
+     * @Route("/ajax/blog/post/create", name="admin_ajax_blog_post_create",
      *          condition="request.isXmlHttpRequest()"
      * )
      * @Method({"POST"})
      */
-    public function ajaxCreateBlogPostAction(Request $request, JsonResponseHelper $jsonResponseHelper)
+    public function createBlogPostAjax(Request $request, ValidatorInterface $validator)
     {
-        $response = $jsonResponseHelper->prepareJsonResponse();
         $requestData = $request->request->all();
 
         $responseData = [
@@ -42,13 +40,13 @@ class AdminController extends Controller
 
         if (!isset($requestData['form'])) {
             $responseData['msg'] = "No key 'form'";
-            return  $response->setData($responseData);
+            return  $this->json($responseData);
         }
         $form = $requestData['form'];
 
         if (!isset($form['title'], $form['description'], $form['text'])) {
             $responseData['msg'] = "No Title, Text or Description";
-            return  $response->setData($responseData);
+            return  $this->json($responseData);
         }
 
         try {
@@ -58,12 +56,11 @@ class AdminController extends Controller
                 ->setText($form['text']);
 
             // Validation
-            $validator = $this->get('validator');
             $errors = $validator->validate($post);
 
             if (count($errors) > 0) {
                 $responseData['msg'] = (string) $errors;
-                return  $response->setData($responseData);
+                return  $this->json($responseData);
             }
 
             $em = $this->getDoctrine()->getManager();
@@ -71,40 +68,38 @@ class AdminController extends Controller
             $em->flush();
 
             $responseData['status'] = true;
-            $responseData['msg'] = 'Successfully Saved';
+            $responseData['msg'] = 'Successfully Saved #id ' . $post->getId();
 
         } catch (\Exception $e) {
             $responseData['msg'] = 'Exception - contact support';
         }
 
-        return $response->setData($responseData);
+        return $this->json($responseData);
     }
 
     /**
-     * @Route("/blog/post/delete", name="admin_delete_blog_post")
+     * @Route("/blog/post/delete", name="admin_blog_post_delete")
      * @Method("GET")
      */
-    public function deleteBlogPostAction()
+    public function deleteBlogPost()
     {
         return $this->render('backend/post/post_delete.html.twig');
     }
 
     /**
-     * @Route("/ajax/blog/post/delete-all", name="admin_ajax_delete_all_blog_post",
+     * @Route("/ajax/blog/post/delete/all", name="admin_ajax_blog_post_delete_all",
      *          condition="request.isXmlHttpRequest()"
      * )
      * @Method({"POST"})
      */
-    public function ajaxDeleteAllBlogPostsAction(JsonResponseHelper $jsonResponseHelper)
+    public function deleteAllBlogPostsAjax()
     {
-        $response = $jsonResponseHelper->prepareJsonResponse();
-
         $responseData = [
             'status' => false,
             'msg'    => 'Error',
         ];
 
-        $postRepository = $this->getDoctrine()->getRepository('App:Post');
+        $postRepository = $this->getDoctrine()->getRepository(Post::class);
 
         try {
             $responseData['status']  = $postRepository->deleteAll();
@@ -115,6 +110,6 @@ class AdminController extends Controller
             $responseData['msg'] = 'Exception - contact support';
         }
 
-        return  $response->setData($responseData);
+        return  $this->json($responseData);
     }
 }

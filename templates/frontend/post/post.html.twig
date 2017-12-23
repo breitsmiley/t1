@@ -9,11 +9,11 @@
 {% block main_content %}
     <div class="col-sm-8 blog-main">
         <nav class="blog-pagination">
-            <a class="btn btn-outline-primary" href="{{ url('show_all_posts') }}">Back to All Posts</a>
+            <a class="btn btn-outline-primary" href="{{ url('homepage') }}">Back to All Posts</a>
         </nav>
 
         <h2 class="blog-post-title">{{ post.title }}</h2>
-        <p class="blog-post-meta">{{ post.createdAt|localizeddate('full', 'short', 'en') }}</p>
+        <p class="blog-post-meta">{{ post.createdAt|localizeddate('full', 'short', 'en') }} # {{ post.id }}</p>
         <p>{{ post.text }}</p>
         <hr>
     </div>
