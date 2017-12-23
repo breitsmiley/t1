@@ -14,10 +14,6 @@ $(function () {
                 url: '/ajax/blog/posts/show',
                 data: {
                     page: page
-                },
-                beforeSend: function() {
-                },
-                complete: function () {
                 }
             }).done(function (data) {
                 postList.html(data.html);
@@ -31,10 +27,18 @@ $(function () {
         }
     };
 
-    postList.on("click", "#postPrevBtn,#postNextBtn", function (e) {
+    postList.on("click", "#postPrevBtn, #postNextBtn", function (e) {
 
         e.preventDefault();
         e.stopPropagation();
+
+        var target = $(e.target );
+
+        if (target.hasClass('disabled')) {
+            return;
+        }
+
+        $('#postPrevBtn, #postNextBtn').prop('disabled', true);
 
         var newPage = 1;
         if (e.target.id === 'postPrevBtn') {

@@ -11,8 +11,7 @@
 
 {% block main_content %}
 <h1>New Post</h1>
-{#<div class="table-responsive">#}
-
+<div class="table-responsive">
     <form id="postCreateForm" method="post">
         <div id="resultAlert" class="alert" style="display: none;" role="alert"></div>
 
@@ -28,7 +27,7 @@
             <label for="textInput">Text</label>
             <textarea class="form-control" id="textInput" rows="3" name='form[text]'>Text</textarea>
         </div>
-        <button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing">Save</button>
+        <button type="submit" class="btn btn-primary">Save</button>
     </form>
-{#</div>#}
+</div>
 {% endblock %}

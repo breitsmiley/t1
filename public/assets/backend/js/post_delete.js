@@ -1,9 +1,9 @@
 $(function () {
-    var form = $("#postCreateForm");
-    var button = $(":submit", form);
+
+    var button = $("#deleteAllBtn");
     var resultAlert = $('#resultAlert');
 
-    form.on("submit", function (e) {
+    button.on("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
 
@@ -12,8 +12,8 @@ $(function () {
 
         $.ajax({
             type: 'POST',
-            url: '/admin/ajax/blog/post/create',
-            data: form.serialize(),
+            url: '/admin/ajax/blog/post/delete-all',
+            data: true,
 
             beforeSend: function() {
                 button.prop('disabled', true);
@@ -22,11 +22,13 @@ $(function () {
                 button.prop('disabled', false);
             }
         }).done(function (data) {
+
             if (data.status) {
                 resultAlert.addClass('alert-success');
             } else {
                 resultAlert.addClass('alert-danger');
             }
+
             resultAlert.html(data.msg);
             resultAlert.show();
 

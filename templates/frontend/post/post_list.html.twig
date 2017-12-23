@@ -8,14 +8,12 @@
         {% endfor %}
     </div>
 
-
     {%  if data.isPrevPage or data.isNextPage %}
         <nav class="blog-pagination">
-            <a id="postPrevBtn" class="btn btn-outline-primary{% if not data.isPrevPage %} disabled{% endif %}" href="#">Prev</a>
-            <a id="postNextBtn" class="btn btn-outline-primary{% if not data.isNextPage %} disabled{% endif %}" href="#">Next</a>
+            <button id="postPrevBtn" class="btn btn-outline-primary{% if not data.isPrevPage %} disabled{% endif %}" href="#">Prev</button>
+            <button id="postNextBtn" class="btn btn-outline-primary{% if not data.isNextPage %} disabled{% endif %}" href="#">Next</button>
         </nav>
     {% endif %}
-
 
 {% else %}
     <div class="alert alert-danger" role="alert">

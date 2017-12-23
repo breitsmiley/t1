@@ -1,0 +1,18 @@
+{% extends 'backend/layout.html.twig' %}
+
+{% block title_prefix %}Delete Blog Post{% endblock %}
+
+{% block page_header_title %}Delete Blog Post{% endblock %}
+{#{% block page_header_description %}List of all posts{% endblock %}#}
+
+{% block jsPageLevelScripts %}
+    <script src="{{ asset('assets/backend/js/post_delete.js') }}"></script>
+{% endblock %}
+
+{% block main_content %}
+<h1>Delete Post</h1>
+<div class="table-responsive">
+    <div id="resultAlert" class="alert" style="display: none;" role="alert"></div>
+    <button id="deleteAllBtn" type="button" class="btn btn-danger">Delete All Posts</button>
+</div>
+{% endblock %}

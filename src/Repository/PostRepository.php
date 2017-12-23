@@ -38,4 +38,18 @@ class PostRepository extends ServiceEntityRepository
 
         return $pagination;
     }
+
+    public function deleteAll()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $table = $this->getEntityManager()
+            ->getClassMetadata($this->getClassName())
+            ->getTableName();
+
+        $sql = "TRUNCATE {$table}";
+        $stmt = $conn->prepare($sql);
+
+        return $stmt->execute();
+    }
 }
